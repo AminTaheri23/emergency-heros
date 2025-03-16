@@ -4,7 +4,7 @@
 
 <PageTitle>Volunteer</PageTitle>
 
-<h1>Volunteer</h1>
+<h1 style="text-align: center">Volunteer</h1>
 
 <div id="map" style="height: 400px; width: 400px;"></div>
 
@@ -39,8 +39,37 @@
 }
 
 <script>
+    function getMapSize(){
+        const mapWidth = window.innerWidth > 600 ? '75%' : '100%';
+        const mapHeight = window.innerHeight > 600 ? '600px': '400px'
+        return {
+            width: mapWidth,
+            height: mapHeight,
+        };
+    }
     window.initializeMap = (dotNetHelper) => {
-        var map = L.map('map').setView([45.50, -73.56], 13); // Montreal as default view
+        const mapSizes = getMapSize();
+        document.getElementById('map').style.width = mapSizes.width;
+        document.getElementById('map').style.height = mapSizes.height;
+         var map = L.map('map');
+
+        // Ask for user location
+         map.locate({ setView: true, maxZoom: 16 });
+
+         function onLocationFound(e) {
+             var radius = e.accuracy / 2;
+             L.marker(e.latlng).addTo(map);
+             L.circle(e.latlng, radius).addTo(map);
+         }
+         map.on('locationfound', onLocationFound);
+
+         function onLocationError(e) {
+             alert(e.message);
+             // Montreal as default view if we can't access the location
+              map.setView([45.50, -73.56], 13);
+         }
+
+         map.on('locationerror', onLocationError);
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
@@ -54,4 +83,10 @@
              dotNetHelper.invokeMethodAsync('SetSelectedLocation', latitude, longitude);
         });
     };
+
+    window.addEventListener('resize', function() {
+        const mapSizes = getMapSize();
+        document.getElementById('map').style.width = mapSizes.width;
+        document.getElementById('map').style.height = mapSizes.height;
+    });
 </script>
