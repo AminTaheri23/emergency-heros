@@ -1,0 +1,32 @@
+razor
+@page "/admindashboard"
+@rendermode InteractiveServer
+
+<PageTitle>Admin Dashboard</PageTitle>
+
+<h1>Admin Dashboard</h1>
+
+<div>
+    <label for="message">Notification Message:</label>
+    <textarea id="message" @bind="notificationMessage" rows="4" cols="50"></textarea>
+</div>
+
+<button class="btn btn-primary" @onclick="SendNotification">Send Notification</button>
+
+@code {
+    private string notificationMessage = string.Empty;
+
+    private void SendNotification()
+    {
+        // In a real application, you would send this message to a backend service
+        // that would handle the broadcasting of notifications to all users.
+        Console.WriteLine($"Sending notification: {notificationMessage}");
+
+        // Reset the message after sending (optional)
+        notificationMessage = string.Empty;
+        
+        //here should be the code to send the notification
+        //to all users
+
+    }
+}

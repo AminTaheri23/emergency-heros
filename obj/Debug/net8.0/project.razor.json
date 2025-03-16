@@ -198,6 +198,43 @@
         }
       },
       {
+        "HashCode": 1109926826,
+        "Kind": "Components.Component",
+        "Name": "myapp.Components.Pages.AdminDashboard",
+        "AssemblyName": "myapp",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "AdminDashboard"
+          }
+        ],
+        "Metadata": {
+          "Common.TypeName": "myapp.Components.Pages.AdminDashboard",
+          "Common.TypeNameIdentifier": "AdminDashboard",
+          "Common.TypeNamespace": "myapp.Components.Pages",
+          "Runtime.Name": "Components.IComponent"
+        }
+      },
+      {
+        "HashCode": 777988645,
+        "Kind": "Components.Component",
+        "Name": "myapp.Components.Pages.AdminDashboard",
+        "AssemblyName": "myapp",
+        "CaseSensitive": true,
+        "TagMatchingRules": [
+          {
+            "TagName": "myapp.Components.Pages.AdminDashboard"
+          }
+        ],
+        "Metadata": {
+          "Common.TypeName": "myapp.Components.Pages.AdminDashboard",
+          "Common.TypeNameIdentifier": "AdminDashboard",
+          "Common.TypeNamespace": "myapp.Components.Pages",
+          "Components.NameMatch": "Components.FullyQualifiedNameMatch",
+          "Runtime.Name": "Components.IComponent"
+        }
+      },
+      {
         "HashCode": 1303201753,
         "Kind": "Components.Component",
         "Name": "myapp.Components.Routes",
@@ -19711,6 +19748,11 @@
     {
       "FilePath": "/home/user/emergency-heros/Components/Pages/FirstAid.razor",
       "TargetPath": "Components\\Pages\\FirstAid.razor",
+      "FileKind": "component"
+    },
+    {
+      "FilePath": "/home/user/emergency-heros/Components/Pages/AdminDashboard.razor",
+      "TargetPath": "Components\\Pages\\AdminDashboard.razor",
       "FileKind": "component"
     },
     {
