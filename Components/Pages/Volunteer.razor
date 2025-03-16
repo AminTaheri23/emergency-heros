@@ -1,0 +1,57 @@
+@page "/volunteer"
+@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+
+<PageTitle>Volunteer</PageTitle>
+
+<h1>Volunteer</h1>
+
+<div id="map" style="height: 400px; width: 400px;"></div>
+
+@if (selectedLocation != null)
+{
+    <p>Selected Location: Lat: @selectedLocation.Latitude, Long: @selectedLocation.Longitude</p>
+}
+
+@code {
+    private Location? selectedLocation;
+
+    private class Location
+    {
+        public double Latitude { get; set; }
+        public double Longitude { get; set; }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JSRuntime.InvokeVoidAsync("initializeMap", DotNetObjectReference.Create(this));
+        }
+    }
+
+    [JSInvokable]
+    public void SetSelectedLocation(double latitude, double longitude)
+    {
+        selectedLocation = new Location { Latitude = latitude, Longitude = longitude };
+        StateHasChanged();
+    }
+}
+
+<script>
+    window.initializeMap = (dotNetHelper) => {
+        var map = L.map('map').setView([45.50, -73.56], 13); // Montreal as default view
+
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '© OpenStreetMap'
+        }).addTo(map);
+
+        map.on('click', function (e) {
+            var latitude = e.latlng.lat;
+            var longitude = e.latlng.lng;
+             // Here we call the C# code
+             dotNetHelper.invokeMethodAsync('SetSelectedLocation', latitude, longitude);
+        });
+    };
+</script>
